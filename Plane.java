@@ -10,14 +10,18 @@ public class Plane extends Entity {
         this.normalVector = normalVector;
         this.point = pointOnPlane;
     }
-
+    
+    @Override
     Vec3D intersect(Vec3D ray) {
-        float ds = ray.len();									// distance
-        Vec3D l = new Vec3D(ray.x / ds, ray.y / ds, ray.z / ds);// unit vector - direction of the line
+        float ds = ray.len();   // distance
+
+        // unit vector - direction of the line
+        Vec3D l = new Vec3D(ray.x / ds, ray.y / ds, ray.z / ds);
 
         // Algebraic form: https://en.wikipedia.org/wiki/Line–plane_intersection#Parametric_form
         // d = (p0 - l0) * n / (l * n)
-        float top = point.sub(ray).mul(this.normalVector);      // (p0 - l0) * n -- lo: ray, p0: point(pointOnPlane)
+        // lo: ray, p0: point(pointOnPlane), n: normal vector, l : direction vector (unit vector)
+        float top = point.sub(ray).mul(this.normalVector);      // (p0 - l0) * n
         float bottom = l.mul(this.normalVector);                // l * n
         
         if (bottom != 0) {                                      // intersect in a single point

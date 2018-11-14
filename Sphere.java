@@ -13,6 +13,7 @@ public class Sphere extends Entity {
 		rad = radius;
 	}
 
+	@Override
 	Vec3D intersect(Vec3D ray) {
 		float originX = 0;
 		float originY = 0;
@@ -21,7 +22,9 @@ public class Sphere extends Entity {
 		float d = ray.len();									// distance
 		Vec3D u = new Vec3D(ray.x / d, ray.y / d, ray.z / d);	// unit vector
 
-		// with b^2 - 4 * a * c
+		// Using the form of Quadratic fomular
+		// a*x^2 + b*x + c = 0
+		// with delta = b^2 - 4 * a * c
 		// http://www.ambrsoft.com/TrigoCalc/Sphere/SpherLineIntersection_.htm
 		float a = (float) (Math.pow(
 			ray.x - originX, 2) + 
