@@ -23,16 +23,7 @@ public class Plane extends Entity {
         // lo: ray, p0: point(pointOnPlane), n: normal vector, l : direction vector (unit vector)
         float top = point.sub(ray).mul(this.normalVector);      // (p0 - l0) * n
         float bottom = l.mul(this.normalVector);                // l * n
-        
-        if (bottom != 0) {                                      // intersect in a single point
-            float d = top / bottom;                             // d is the real scalar in number domain
-            return l.mul(d).add(ray);                           // the point of intersection is given by d * l + l0
-        } else {                                                // parallel
-            if (top == 0) {                                     // the vector is contained on the plane
-                return null;
-            } else {                                            // just parallel
-                return null;
-            }
-        }
+
+        return (bottom != 0) ? l.mul(top / bottom).add(ray) : null;
     }
 }
